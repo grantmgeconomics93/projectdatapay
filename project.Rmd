@@ -10,7 +10,9 @@ library(tidyverse)
 ```
 
 
-```{r cars,error=FALSE,}
+```{r,}
+data_cleaned_2021=
+View(data_cleaned_2021)
 
 ```
 
