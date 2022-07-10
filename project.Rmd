@@ -7,12 +7,14 @@ date: '2022-07-10'
 ```{r setup, message=FALSE,warning=FALSE}
 library(dbplyr)
 library(tidyverse)
+
 ```
 
 
 ```{r,}
-data_cleaned_2021=
-View(data_cleaned_2021)
+newmin=substr(data_cleaned_2021$`Salary Estimate`,2,4)
+
+data1=cbind(data_cleaned_2021,newmin)
 
 ```
 
