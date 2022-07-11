@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "giyyuitt"
 output: github_document
 date: '2022-07-10'
 ---
@@ -7,16 +7,35 @@ date: '2022-07-10'
 ```{r setup, message=FALSE,warning=FALSE}
 library(dbplyr)
 library(tidyverse)
+library(stringi)
 ```
 
 
-```{r cars,error=FALSE,}
-
+```{r,}
+library(readxl)
+data_cleaned_2021 <- read_excel("data_cleaned_2021.xlsx")
+View(data_cleaned_2021)
 ```
 
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+newmin=substr(data_cleaned_2021$`Salary Estimate`,2,4)
+newwmin=gsub("K","",(newmin))%>%as.numeric()
+newdata=cbind(newwmin,data_cleaned_2021)
+
+```
+```{r}
+ newmax=substr(data_cleaned_2021$`Salary Estimate`,7,9)
+newdata$newmax=gsub("K","",(newmax))%>%as.numeric()
+#new=separate(#,col= `Salary Estimate`,into= c("emp","glassdoor","o","my") ,sep ="([$()])")z
+
+```
+```{r}
+df=data_cleaned_2021%>%select(`Salary Estimate`)%>%sample_n(100)
+```
+
+```{r}
+dff=data_cleaned_2021%>%select(`Salary Estimate`)%>%sample_n(100)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
