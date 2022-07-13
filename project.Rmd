@@ -7,6 +7,7 @@ date: '2022-07-10'
 ```{r setup, message=FALSE,warning=FALSE}
 library(dbplyr)
 library(tidyverse)
+library(tidyr)
 library(stringi)
 ```
 
@@ -21,15 +22,16 @@ View(data_cleaned_2021)
 ```{r pressure, echo=FALSE}
 newmin=substr(data_cleaned_2021$`Salary Estimate`,2,4)
 newwmin=gsub("K","",(newmin))%>%as.numeric()
-newdata=cbind(newwmin,data_cleaned_2021)
+data_cleaned_2021$newmin=cbind(newwmin,data_cleaned_2021)
 
 ```
 ```{r}
- newmax=substr(data_cleaned_2021$`Salary Estimate`,7,9)
-newdata$newmax=gsub("K","",(newmax))%>%as.numeric()
-#new=separate(#,col= `Salary Estimate`,into= c("emp","glassdoor","o","my") ,sep ="([$()])")z
+ nw=separate(data = data_cleaned_2021,col= `Salary Estimate`,into= c("emp","glassdoor","o","my") ,sep ="([$()])")
+ 
+data_cleaned_2021$newmax=gsub("K","",(nw$o))%>%as.numeric()
 
 ```
+
 ```{r}
 df=data_cleaned_2021%>%select(`Salary Estimate`)%>%sample_n(100)
 ```
