@@ -21,15 +21,20 @@ View(data_cleaned_2021)
 
 ```{r pressure, echo=FALSE}
 newmin=substr(data_cleaned_2021$`Salary Estimate`,2,4)
-newwmin=gsub("K","",(newmin))%>%as.numeric()
-data_cleaned_2021$newmin=cbind(newwmin,data_cleaned_2021)
+data_cleaned_2021$newmin=gsub("K","",(newmin))%>%as.numeric()
+
 
 ```
 ```{r}
  nw=separate(data = data_cleaned_2021,col= `Salary Estimate`,into= c("emp","glassdoor","o","my") ,sep ="([$()])")
  
-data_cleaned_2021$newmax=gsub("K","",(nw$o))%>%as.numeric()
+data_cleaned_2021$newmaxx=gsub("K","",(nw$o))%>%as.numeric()
 
+```
+
+```{r}
+ty= cbind(data_cleaned_2021$newmin,data_cleaned_2021$newmaxx)
+data_cleaned_2021$Aver=rowMeans(ty)
 ```
 
 ```{r}
@@ -41,3 +46,9 @@ dff=data_cleaned_2021%>%select(`Salary Estimate`)%>%sample_n(100)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+
+```
+
+
+
