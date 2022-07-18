@@ -26,9 +26,17 @@ data_cleaned_2021$newmin=gsub("K","",(newmin))%>%as.numeric()
 
 ```
 ```{r}
- nw=separate(data = data_cleaned_2021,col= `Salary Estimate`,into= c("emp","glassdoor","o","my") ,sep ="([$()])")
- 
-data_cleaned_2021$newmaxx=gsub("K","",(nw$o))%>%as.numeric()
+nw=separate(data= df,col= `Salary Estimate`,into= c("emp","min","max","glassdoor") ,sep ="([$()])")
+
+nw$sourse=ifelse(is.na(nw$glassdoor),nw$emp,nw$glassdoor)
+```
+
+
+```{r}
+nw$hourly=grepl(pattern = "H",nw$max,ignore.case = TRUE)
+nw$min=as.numeric(gsub("[^[:digit:]]","",nw$min))
+nw$max=as.numeric(gsub("[^[:digit:]]","",nw$max))
+#data_cleaned_2021$newmaxx=gsub("K","",(nw$o))%>%as.numeric()
 
 ```
 
