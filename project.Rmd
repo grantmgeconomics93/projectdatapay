@@ -16,18 +16,22 @@ library(stringi)
 library(readxl)
 data_cleaned_2021 <- read_excel("data_cleaned_2021.xlsx")
 View(data_cleaned_2021)
+library("tidyr")
 ```
 
 
 ```{r pressure, echo=FALSE}
-newmin=substr(data_cleaned_2021$`Salary Estimate`,2,4)
-data_cleaned_2021$newmin=gsub("K","",(newmin))%>%as.numeric()
+#newmin=substr(data_cleaned_2021$`Salary Estimate`,2,4)
+#data_cleaned_2021$newmin=gsub("K","",(newmin))%>%as.numeric()
 
 
 ```
 ```{r}
-nw=separate(data= df,col= `Salary Estimate`,into= c("emp","min","max","glassdoor") ,sep ="([$()])")
+nw=separate(data= data_cleaned_2021[,"Salary Estimate"],col= `Salary Estimate`,into= c("emp","min","max","glassdoor") ,sep ="([$()])")
+```
 
+
+```{r}
 nw$sourse=ifelse(is.na(nw$glassdoor),nw$emp,nw$glassdoor)
 ```
 
@@ -41,7 +45,7 @@ nw$max=as.numeric(gsub("[^[:digit:]]","",nw$max))
 ```
 
 ```{r}
-ty= cbind(data_cleaned_2021$newmin,data_cleaned_2021$newmaxx)
+#ty= cbind(data_cleaned_2021$newmin,data_cleaned_2021$newmaxx)
 data_cleaned_2021$Aver=rowMeans(ty)
 ```
 
@@ -55,7 +59,7 @@ dff=data_cleaned_2021%>%select(`Salary Estimate`)%>%sample_n(100)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 ```{r}
-
+clean=cbind.data.frame(data_cleaned_2021,nw)
 ```
 
 
