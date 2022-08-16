@@ -70,8 +70,16 @@ table(clean$locclean)
 ```{r}
 clean$hq=str_sub(toupper(data_cleaned_2021$Headquarters),-2,-1)
 table(clean$hq)
+clean$ratingss= NULL
 
 ```
 
+```{r}
+clean$rating  =str_sub(data_cleaned_2021$`Company Name`,-3,-1)
+table(clean$rating)
+clean$aaratingss =NULL
+clean$aaratingss= NULL
+
+```
 
 
